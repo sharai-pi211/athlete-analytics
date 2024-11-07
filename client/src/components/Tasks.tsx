@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import "../styles/Tasks.css";
 import EditTaskModal from "./EditTaskModal";
+import CalendarView from "./CalendarView";
 import CreateTaskModal from "./CreateTaskModal";
+import KanbanBoard from "./KanbanBoard";
+import { priorityTranslation, statusTranslation } from "../utils/vocabulary";
 
 interface Task {
   id: number;
@@ -160,10 +163,42 @@ const Tasks: React.FC = () => {
 
   const totalPages = Math.ceil(tasks.length / tasksPerPage);
 
+  const translateStatus = (status: string): string => {
+    return status in statusTranslation
+      ? statusTranslation[status as keyof typeof statusTranslation]
+      : "Неизвестный статус";
+  };
+
+  const translatePriority = (priority: string): string => {
+    return priority in priorityTranslation
+      ? priorityTranslation[priority as keyof typeof priorityTranslation]
+      : "Неизвестный приоритет";
+  };
 
   return (
     <div className="tasks-container">
       <h1>Задания для команды</h1>
+      <div className="view-switch">
+        <button
+          className="view-switch-btn"
+          onClick={() => setViewMode("table")}
+        >
+          Таблица
+        </button>
+        <button
+          className="view-switch-btn"
+          onClick={() => setViewMode("calendar")}
+        >
+          Календарь
+        </button>
+        <button
+          className="view-switch-btn"
+          onClick={() => setViewMode("kanban")}
+        >
+          Доска
+        </button>
+      </div>
+      {viewMode === "table" ? (
         <>
           {tasks.length === 0 ? (
             <p>No tasks available for this team.</p>
@@ -203,10 +238,10 @@ const Tasks: React.FC = () => {
                       <td>{task.title}</td>
                       <td>{cleanText(task.description)}</td>
                       <td className={`${task.priority.toLowerCase()}`}>
-                        (task.priority)
+                        {translatePriority(task.priority)}
                       </td>
                       <td className={`${task.status.toLowerCase()}`}>
-                        (task.status)
+                        {translateStatus(task.status)}
                       </td>
                       <td>
                         <div className="creator-info">
@@ -271,8 +306,50 @@ const Tasks: React.FC = () => {
             +
           </button>
         </>
-      ) 
-   }
+      ) : viewMode === "calendar" ? (
+        <>
+          <CalendarView
+            tasks={tasks.map((task) => ({
+              id: task.id,
+              title: task.title,
+              status: task.status,
+              priority: task.priority,
+              due_date: task.due_date,
+            }))}
+            onTaskClick={(task) => {
+              const fullTask = tasks.find((t) => t.id === task.id);
+              if (fullTask) {
+                openEditModal(fullTask);
+              }
+            }}
+          />
+          <button
+            className="create-task-button"
+            onClick={() => setActiveModal("create")}
+          >
+            +
+          </button>
+        </>
+      ) : (
+        <>
+          <KanbanBoard
+            tasks={tasks}
+            onTaskClick={(task) => {
+              const fullTask = tasks.find((t) => t.id === task.id);
+              if (fullTask) {
+                openEditModal(fullTask);
+              }
+            }}
+            onTaskStatusChange={updateTaskStatus}
+          />
+          <button
+            className="create-task-button"
+            onClick={() => setActiveModal("create")}
+          >
+            +
+          </button>
+        </>
+      )}
       {activeModal === "create" && (
         <CreateTaskModal
           teamId={teamId!}
