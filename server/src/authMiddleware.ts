@@ -10,7 +10,7 @@ interface DecodedToken {
 export const authenticateToken = (
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
   const authHeader = req.headers.authorization;
 

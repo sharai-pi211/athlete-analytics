@@ -54,7 +54,6 @@ router.post("/:teamId/members", authenticateToken, async (req, res) => {
   const currentUserId = req.body.userId; // ID текущего пользователя из токена
 
   try {
-
     // Проверяем, существует ли текущий пользователь
     const currentUserCheck = await pool.query(
       "SELECT * FROM users WHERE id = $1",

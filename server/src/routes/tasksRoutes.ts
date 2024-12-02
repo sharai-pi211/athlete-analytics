@@ -42,7 +42,7 @@ router.post(
           creatorId,
           teamId,
           assigned_to || null,
-        ]
+        ],
       );
 
       const createdTask = newTask.rows[0];
@@ -64,7 +64,7 @@ router.post(
       console.error("Error creating task:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  }
+  },
 );
 
 router.get(
@@ -111,7 +111,7 @@ router.get(
         WHERE t.team_id = $1
         ORDER BY t.created_at DESC
         `,
-        [teamId]
+        [teamId],
       );
 
       res.status(200).json({
@@ -122,7 +122,7 @@ router.get(
       console.error("Error fetching tasks:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  }
+  },
 );
 
 interface UpdateTaskBody {
@@ -152,7 +152,7 @@ router.put(
 
       const taskCheck = await pool.query(
         "SELECT * FROM tasks WHERE id = $1 AND team_id = $2",
-        [taskId, teamId]
+        [taskId, teamId],
       );
       if (taskCheck.rows.length === 0) {
         return res.status(404).json({ message: "Task not found" });
@@ -190,7 +190,7 @@ router.put(
       }
 
       const query = `UPDATE tasks SET ${updates.join(
-        ", "
+        ", ",
       )} WHERE id = $1 RETURNING *`;
       const updatedTask = await pool.query(query, values);
 
@@ -233,7 +233,7 @@ router.put(
       console.error("Error updating task:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  }
+  },
 );
 
 router.delete(
@@ -252,7 +252,7 @@ router.delete(
 
       const taskCheck = await pool.query(
         "SELECT * FROM tasks WHERE id = $1 AND team_id = $2",
-        [taskId, teamId]
+        [taskId, teamId],
       );
       if (taskCheck.rows.length === 0) {
         return res.status(404).json({ message: "Task not found" });
@@ -265,7 +265,7 @@ router.delete(
       console.error("Error deleting task:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  }
+  },
 );
 
 router.get("/:teamId", authenticateToken, async (req, res) => {
@@ -342,7 +342,7 @@ router.patch(
     try {
       const updatedTask = await pool.query(
         `UPDATE tasks SET status = $1, updated_at = CURRENT_TIMESTAMP WHERE id = $2 RETURNING *`,
-        [status, taskId]
+        [status, taskId],
       );
 
       if (updatedTask.rowCount === 0) {
@@ -354,7 +354,7 @@ router.patch(
       console.error("Error updating task:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  }
+  },
 );
 
 router.get(
@@ -362,7 +362,7 @@ router.get(
   authenticateToken,
   async (req: Request, res: Response) => {
     const { teamId } = req.params; // Получаем teamId из параметров маршрута
-    const userId = req.body.userId ; // Берем userId из токена через authenticateToken
+    const userId = req.body.userId; // Берем userId из токена через authenticateToken
 
     try {
       // Проверяем, существует ли команда
@@ -376,7 +376,7 @@ router.get(
       // Получаем задачи, назначенные на пользователя
       const assignedTasks = await pool.query(
         "SELECT * FROM tasks WHERE team_id = $1 AND assigned_to = $2 ORDER BY created_at DESC",
-        [teamId, userId]
+        [teamId, userId],
       );
 
       res.status(200).json({
@@ -387,8 +387,7 @@ router.get(
       console.error("Error fetching assigned tasks:", error);
       res.status(500).json({ message: "Internal server error" });
     }
-  }
+  },
 );
-
 
 export default router;

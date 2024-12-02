@@ -31,7 +31,7 @@ export const initializeWebSocketServer = (server: any) => {
             // Save the chat message to the database
             const newMessage = await pool.query(
               "INSERT INTO messages (team_id, user_id, content) VALUES ($1, $2, $3) RETURNING *",
-              [teamId, userId, content]
+              [teamId, userId, content],
             );
 
             console.log(newMessage);
@@ -49,7 +49,7 @@ export const initializeWebSocketServer = (server: any) => {
                       teamId, // Добавляем teamId, чтобы клиенты могли фильтровать сообщения
                       created_at: newMessage.rows[0].created_at,
                     },
-                  })
+                  }),
                 );
               }
             });
