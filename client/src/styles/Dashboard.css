@@ -1,0 +1,92 @@
+.flex-row {
+  display: flex;
+  flex-direction: row;
+}
+
+.dashboard-container {
+  padding: 20px;
+  background-color: #f9f9f9;
+  width: calc(100vw - 350px);
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.dashboard-cards {
+  /* display: flex;
+  justify-content: space-around;
+  margin-bottom: 30px; */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 колонки одинаковой ширины */
+  gap: 20px; /* Расстояние между элементами */
+  margin-bottom: 20px;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.card h3 {
+  margin: 10px 0;
+  color: #555;
+}
+
+.card p {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+}
+
+.charts {
+  display: flex;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.chart {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  width: 400px;
+}
+
+.chart h3 {
+  margin-bottom: 15px;
+  color: #555;
+}
+
+.top-cont{
+  display: flex;
+  justify-content:space-between;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.top-cont .chart{
+  flex-grow: 1;
+}
+
+.second-cont{
+  display: flex;
+  justify-content:space-between;
+  margin-bottom: 40px;
+  gap: 20px;
+}
+
+.second-cont .chart{
+  flex-grow: 1;
+}
+
+.v-cont{
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+}
+
+.chart-by-user{
+  flex-grow: 1;
+}
