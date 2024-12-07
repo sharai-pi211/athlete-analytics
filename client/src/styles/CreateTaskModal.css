@@ -74,7 +74,7 @@
   cursor: pointer;
   background-color: var(--green);
   color: white;
-  margin-top: auto
+  margin-top: auto;
 }
 
 .create-task-btn:hover {
@@ -178,12 +178,12 @@
   margin: 10px 0;
 }
 
-.edit-buttons{
+.edit-buttons {
   margin-top: 100px;
   align-self: flex-end;
 }
 
-.edit-buttons button{
+.edit-buttons button {
   padding: 10px 15px; /* Добавляем комфортные отступы */
   border: 1px solid #ccc; /* Цвет рамки, как у селекта */
   border-radius: 5px; /* Закругляем углы, как у селекта */
@@ -195,12 +195,12 @@
   margin-right: 10px;
 }
 
-.edit-buttons button:first-child{
+.edit-buttons button:first-child {
   background-color: var(--green); /* Белый фон */
   color: white;
 }
 
-.description{
+.description {
   max-height: 40vh;
   overflow-y: auto;
   scrollbar-width: thin;
@@ -210,7 +210,7 @@
   align-items: flex-start;
 }
 
-.description h2{
+.description h2 {
   margin-bottom: 0;
   padding-bottom: 0;
 }

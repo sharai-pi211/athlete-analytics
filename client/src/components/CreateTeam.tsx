@@ -62,9 +62,7 @@ const CreateTeam: React.FC = () => {
     const { data, innerRef, innerProps } = props;
     return (
       <div ref={innerRef} {...innerProps} className="custom-option">
-        <span>
-          {data.username}
-        </span>
+        <span>{data.username}</span>
         <button
           type="button"
           onClick={(e) => {
@@ -126,54 +124,58 @@ const CreateTeam: React.FC = () => {
   return (
     <div className="modal create-team-container">
       <div className="modal-content">
-      <h1>Создайте новую команду</h1>
-      <form onSubmit={handleCreateTeam}>
-        <div className="column teams-cont">
-          <label>Название команды</label>
-          <input
-            type="text"
-            value={teamName}
-            onChange={(e) => setTeamName(e.target.value)}
-            required
-            className="css-13cymwt-control teams-input"
-          />
-        </div>
-        <div className="teams-cont">
-          <label>Добавьте участников</label>
-          <Select
-            options={users}
-            getOptionLabel={(e) => e.username}
-            getOptionValue={(e) => e.id.toString()}
-            components={{ Option: customOption }}
-            placeholder="Поиск..."
-          />
-        </div>
+        <h1>Создайте новую команду</h1>
+        <form onSubmit={handleCreateTeam}>
+          <div className="column teams-cont">
+            <label>Название команды</label>
+            <input
+              type="text"
+              value={teamName}
+              onChange={(e) => setTeamName(e.target.value)}
+              required
+              className="css-13cymwt-control teams-input"
+            />
+          </div>
+          <div className="teams-cont">
+            <label>Добавьте участников</label>
+            <Select
+              options={users}
+              getOptionLabel={(e) => e.username}
+              getOptionValue={(e) => e.id.toString()}
+              components={{ Option: customOption }}
+              placeholder="Поиск..."
+            />
+          </div>
 
-        {selectedUsers.length > 0 && (
-          <>
-            <div className="selected-users">
-              <h2 className="sel-users">Выбранные участники</h2>
-              <ul>
-                {selectedUsers.map((member) => (
-                  <li key={member.id}>
-                    {member.username}
-                    <button
-                      type="button"
-                      onClick={() => removeUser(member.id)}
-                      className="teams-btn"
-                    >
-                      Удалить
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <button type="submit" disabled={loading} className="teams-btn-green">
-              {loading ? "Создание..." : "Создать команду"}
-            </button>
-          </>
-        )}
-      </form>
+          {selectedUsers.length > 0 && (
+            <>
+              <div className="selected-users">
+                <h2 className="sel-users">Выбранные участники</h2>
+                <ul>
+                  {selectedUsers.map((member) => (
+                    <li key={member.id}>
+                      {member.username}
+                      <button
+                        type="button"
+                        onClick={() => removeUser(member.id)}
+                        className="teams-btn"
+                      >
+                        Удалить
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <button
+                type="submit"
+                disabled={loading}
+                className="teams-btn-green"
+              >
+                {loading ? "Создание..." : "Создать команду"}
+              </button>
+            </>
+          )}
+        </form>
       </div>
     </div>
   );

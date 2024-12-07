@@ -21,23 +21,20 @@ interface Task {
 }
 
 const cleanText = (text: string) => {
-  if (!text) return ""; // Если текст null, undefined или пустой, вернуть пустую строку
-  return text
-    .replace(/[#*]/g, "") // Убирает символы # и *
-    .replace(/\s+/g, " ") // Убирает лишние пробелы
-    .trim(); // Убирает пробелы в начале и конце строки
+  if (!text) return "";
+  return text.replace(/[#*]/g, "").replace(/\s+/g, " ").trim();
 };
 
 const Tasks: React.FC = () => {
   const [tasks, setTasks] = useState<Task[]>([]);
   const [activeModal, setActiveModal] = useState<"create" | "edit" | null>(
-    null
+    null,
   );
   const [selectedTask, setSelectedTask] = useState<Task | null>(null);
   const [sortField, setSortField] = useState<keyof Task>("created_at");
   const [sortOrder, setSortOrder] = useState<"asc" | "desc">("desc");
   const [viewMode, setViewMode] = useState<"table" | "calendar" | "kanban">(
-    "table"
+    "table",
   );
   const [currentPage, setCurrentPage] = useState(1);
   const [tasksPerPage] = useState(10);
@@ -47,7 +44,7 @@ const Tasks: React.FC = () => {
   const fetchTasks = async (
     teamId: string,
     sortField: keyof Task,
-    sortOrder: "asc" | "desc"
+    sortOrder: "asc" | "desc",
   ) => {
     const rawToken = localStorage.getItem("token");
     const token = rawToken?.replace(/^"|"$/g, "");
@@ -60,7 +57,7 @@ const Tasks: React.FC = () => {
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (response.ok) {
@@ -108,7 +105,7 @@ const Tasks: React.FC = () => {
 
     try {
       const response = await fetch(`http://localhost:5000/tasks/${taskId}`, {
-        method: "PATCH", // Используем метод PATCH для обновления
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -120,8 +117,8 @@ const Tasks: React.FC = () => {
         const updatedTask = await response.json();
         setTasks((prevTasks) =>
           prevTasks.map((task) =>
-            task.id === taskId ? { ...task, status: updatedTask.status } : task
-          )
+            task.id === taskId ? { ...task, status: updatedTask.status } : task,
+          ),
         );
       } else {
         console.error("Failed to update task status");

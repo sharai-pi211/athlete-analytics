@@ -6,13 +6,12 @@ import { priorityTranslation, statusTranslation } from "../utils/vocabulary";
 interface TaskAssignedData {
   taskId: number;
   title: string;
-  description: string; // Описание задачи
-  status: string; // Статус задачи
-  priority: string; // Приоритет задачи
+  description: string;
+  status: string;
+  priority: string;
   message: string;
   source: "fetch" | "websocket";
 }
-
 
 interface Task {
   id: number;
@@ -40,14 +39,13 @@ const translatePriority = (priority: string): string => {
 
 const sanitizeMarkdown = (text: string): string => {
   return text
-    .replace(/(^\s*#.*$)/gm, "") // Убирает строки с заголовками Markdown (#)
-    .replace(/^\s*\*.*$/gm, "") // Убирает строки со списками Markdown (*)
-    .replace(/^\s+/gm, "") // Убирает начальные пробелы
-    .replace(/\*\*(.*?)\*\*/g, "$1") // Убирает жирный шрифт (**text**)
-    .replace(/\*(.*?)\*/g, "$1") // Убирает курсив (*text*)
-    .trim(); // Убирает лишние пробелы в начале и конце
+    .replace(/(^\s*#.*$)/gm, "")
+    .replace(/^\s*\*.*$/gm, "")
+    .replace(/^\s+/gm, "")
+    .replace(/\*\*(.*?)\*\*/g, "$1")
+    .replace(/\*(.*?)\*/g, "$1")
+    .trim();
 };
-
 
 const Notifications: React.FC = () => {
   const [notifications, setNotifications] = useState<TaskAssignedData[]>([]);
@@ -57,7 +55,7 @@ const Notifications: React.FC = () => {
   const teamId = localStorage.getItem("selectedTeamId");
 
   useEffect(() => {
-    const abortController = new AbortController(); // Создаем новый AbortController
+    const abortController = new AbortController();
     const { signal } = abortController;
 
     const loadAssignedTasks = async () => {
@@ -78,8 +76,8 @@ const Notifications: React.FC = () => {
               "Content-Type": "application/json",
               Authorization: `Bearer ${token}`,
             },
-            signal, // Передаем сигнал AbortController в запрос
-          }
+            signal,
+          },
         );
 
         if (response.ok) {
@@ -88,50 +86,51 @@ const Notifications: React.FC = () => {
 
           setNotifications((prev: TaskAssignedData[]) => [
             ...prev,
-            ...tasks.map((task): TaskAssignedData => ({
-              taskId: task.id,
-              title: task.title,
-              description: sanitizeMarkdown(task.description || ""),
-              status: task.status,
-              priority: task.priority,
-              message: "Вам было назначено задание:",
-              source: "fetch",
-            })),
+            ...tasks.map(
+              (task): TaskAssignedData => ({
+                taskId: task.id,
+                title: task.title,
+                description: sanitizeMarkdown(task.description || ""),
+                status: task.status,
+                priority: task.priority,
+                message: "Вам было назначено задание:",
+                source: "fetch",
+              }),
+            ),
           ]);
         } else {
           console.error("Failed to fetch assigned tasks");
         }
       } catch (err) {
         if ((err as Error).name === "AbortError") {
-            console.log("Fetch aborted");
-          } else {
-            console.error("Error fetching assigned tasks:", err);
-          }
+          console.log("Fetch aborted");
+        } else {
+          console.error("Error fetching assigned tasks:", err);
+        }
       }
     };
 
     loadAssignedTasks();
 
     return () => {
-      abortController.abort(); // Отменяем предыдущий запрос при размонтировании или повторном вызове
+      abortController.abort();
     };
   }, [teamId]);
 
   useWebSocket(userId, (newTask) => {
     setNotifications((prev: TaskAssignedData[]) => [
       ...prev,
-      { 
+      {
         taskId: newTask.taskId,
         title: newTask.title,
         description: newTask.description || "Описание не указано",
         status: newTask.status || "Статус не указан",
         priority: newTask.priority || "Приоритет не указан",
         message: "Вам было назначено задание:",
-        source: "websocket" 
+        source: "websocket",
       },
     ]);
   });
-  
 
   const sortedNotifications = [...notifications].sort((a, b) => {
     if (a.source === "websocket" && b.source === "fetch") return -1;
@@ -146,27 +145,33 @@ const Notifications: React.FC = () => {
         <p>No new notifications.</p>
       ) : (
         <>
-        <h3>Вам были назначены следующие задания: </h3>
-        <ul>
-          {sortedNotifications.map((notif) => (
-            <li
-            className="notif-li"
-              key={notif.taskId}
-              style={{
-                color: notif.source === "websocket" ? "red" : "black",
-              }}
-            >
-              <div>
-              <strong> {notif.title}</strong>
-              <p> {notif.description}</p>
-              </div>
-              <div className="not-statuses">
-              <p className={`${notif.status.toLowerCase()}`}> {translateStatus(notif.status)}</p>
-              <p className={`${notif.priority.toLowerCase()}`}> {translatePriority(notif.priority)}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
+          <h3>Вам были назначены следующие задания: </h3>
+          <ul>
+            {sortedNotifications.map((notif) => (
+              <li
+                className="notif-li"
+                key={notif.taskId}
+                style={{
+                  color: notif.source === "websocket" ? "red" : "black",
+                }}
+              >
+                <div>
+                  <strong> {notif.title}</strong>
+                  <p> {notif.description}</p>
+                </div>
+                <div className="not-statuses">
+                  <p className={`${notif.status.toLowerCase()}`}>
+                    {" "}
+                    {translateStatus(notif.status)}
+                  </p>
+                  <p className={`${notif.priority.toLowerCase()}`}>
+                    {" "}
+                    {translatePriority(notif.priority)}
+                  </p>
+                </div>
+              </li>
+            ))}
+          </ul>
         </>
       )}
     </div>

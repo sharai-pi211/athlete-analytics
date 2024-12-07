@@ -9,7 +9,7 @@ const loginSchema = z.object({
   email: z.string().email({ message: "Неправильный адрес электронной почты" }),
   password: z
     .string()
-    .min(6, { message: "Пароль должен содержать минимум 6 символов"  }),
+    .min(6, { message: "Пароль должен содержать минимум 6 символов" }),
 });
 
 type LoginFormInputs = z.infer<typeof loginSchema>;
@@ -19,7 +19,7 @@ const saveToLocalStorage = (key: string, value: object) => {
 };
 
 const Login: React.FC = () => {
-  const navigate = useNavigate(); // Навигация с помощью React Router
+  const navigate = useNavigate();
 
   const {
     register,
@@ -41,11 +41,10 @@ const Login: React.FC = () => {
 
       if (response.ok) {
         const result = await response.json();
-        // Сохраняем токен и данные пользователя в Local Storage
+
         saveToLocalStorage("token", result.token);
         saveToLocalStorage("user", result.user);
-        navigate("/")
-
+        navigate("/");
       } else {
         const error = await response.json();
         alert(`Login failed: ${error.message}`);
@@ -58,42 +57,42 @@ const Login: React.FC = () => {
 
   return (
     <div className="full-container">
-    <div className="login-container">
-      <h1 className="login-title">Вход</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">
-            Электронная почта
-          </label>
-          <input
-            id="email"
-            type="email"
-            {...register("email")}
-            className="form-input"
-          />
-          {errors.email && (
-            <p className="error-message">{errors.email.message}</p>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="password" className="form-label">
-            Пароль
-          </label>
-          <input
-            id="password"
-            type="password"
-            {...register("password")}
-            className="form-input"
-          />
-          {errors.password && (
-            <p className="error-message">{errors.password.message}</p>
-          )}
-        </div>
-        <button type="submit" className="submit-button">
-          Войти
-        </button>
-      </form>
-    </div>
+      <div className="login-container">
+        <h1 className="login-title">Вход</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">
+              Электронная почта
+            </label>
+            <input
+              id="email"
+              type="email"
+              {...register("email")}
+              className="form-input"
+            />
+            {errors.email && (
+              <p className="error-message">{errors.email.message}</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">
+              Пароль
+            </label>
+            <input
+              id="password"
+              type="password"
+              {...register("password")}
+              className="form-input"
+            />
+            {errors.password && (
+              <p className="error-message">{errors.password.message}</p>
+            )}
+          </div>
+          <button type="submit" className="submit-button">
+            Войти
+          </button>
+        </form>
+      </div>
     </div>
   );
 };

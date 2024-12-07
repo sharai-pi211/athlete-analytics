@@ -44,7 +44,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
 
         if (response.ok) {
@@ -66,7 +66,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
   }, [teamId]);
 
   const handleNewTaskChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = e.target;
     setNewTask({ ...newTask, [name]: value });
@@ -97,7 +97,7 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             due_date: newTask.due_date,
             assigned_to: newTask.assigned_to || null,
           }),
-        }
+        },
       );
 
       if (response.ok) {
@@ -133,21 +133,21 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
             />
             <strong>Описание:</strong>
             <div className="mde-cont">
-            <ReactMde
-              value={newTask.description}
-              onChange={handleMarkdownChange}
-              selectedTab={selectedTab}
-              onTabChange={setSelectedTab}
-              generateMarkdownPreview={(markdown) =>
-                Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
-              }
-              l18n={{
-                write: "Редактирование", // Новый текст для вкладки "Write"
-                preview: "Просмотр",     // Новый текст для вкладки "Preview"
-                uploadingImage: "Загрузка изображения...", // Дополнительный текст
-                pasteDropSelect: "Перетащите изображение или вставьте ссылку" // Если требуется
-              }}
-            />
+              <ReactMde
+                value={newTask.description}
+                onChange={handleMarkdownChange}
+                selectedTab={selectedTab}
+                onTabChange={setSelectedTab}
+                generateMarkdownPreview={(markdown) =>
+                  Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
+                }
+                l18n={{
+                  write: "Редактирование",
+                  preview: "Просмотр",
+                  uploadingImage: "Загрузка изображения...",
+                  pasteDropSelect: "Перетащите изображение или вставьте ссылку",
+                }}
+              />
             </div>
           </div>
           <div className="right-modal">
@@ -191,7 +191,9 @@ const CreateTaskModal: React.FC<CreateTaskModalProps> = ({
               value={newTask.due_date}
               onChange={handleNewTaskChange}
             />
-            <button onClick={createTask} className="create-task-btn">Создать</button>
+            <button onClick={createTask} className="create-task-btn">
+              Создать
+            </button>
           </div>
         </div>
       </div>

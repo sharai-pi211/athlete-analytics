@@ -22,17 +22,16 @@ ChartJS.register(
   LineElement,
   PointElement,
   Tooltip,
-  Legend
+  Legend,
 );
 
 const chartOptions = {
   plugins: {
     legend: {
-      display: false, 
+      display: false,
     },
   },
 };
-
 
 const Dashboard: React.FC = () => {
   const [tasks, setTasks] = useState<any[]>([]);
@@ -59,7 +58,7 @@ const Dashboard: React.FC = () => {
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
 
         if (response.ok) {
@@ -82,10 +81,10 @@ const Dashboard: React.FC = () => {
   const getStatusData = () => {
     const todo = tasks.filter((task) => task.status === "todo").length;
     const inProgress = tasks.filter(
-      (task) => task.status === "in progress"
+      (task) => task.status === "in progress",
     ).length;
     const completed = tasks.filter(
-      (task) => task.status === "completed"
+      (task) => task.status === "completed",
     ).length;
 
     return {
@@ -123,7 +122,7 @@ const Dashboard: React.FC = () => {
     // Map users to colors
     const userLabels = Object.keys(users);
     const backgroundColors = userLabels.map(
-      (_, index) => colors[index % colors.length]
+      (_, index) => colors[index % colors.length],
     );
 
     return {
@@ -143,7 +142,7 @@ const Dashboard: React.FC = () => {
       (task) =>
         task.due_date &&
         new Date(task.due_date) < new Date() &&
-        task.status !== "completed"
+        task.status !== "completed",
     ).length;
 
     const onTime = tasks.length - overdue;
@@ -176,7 +175,7 @@ const Dashboard: React.FC = () => {
     };
   };
 
-  if (loading) return <Loading/>;
+  if (loading) return <Loading />;
   if (error) return <p>Error: {error}</p>;
 
   return (
@@ -229,7 +228,7 @@ const Dashboard: React.FC = () => {
         </div>
         <div className="chart">
           <h3>Приоритет</h3>
-          <Bar data={getPriorityData()} options={chartOptions}/>
+          <Bar data={getPriorityData()} options={chartOptions} />
         </div>
       </div>
 

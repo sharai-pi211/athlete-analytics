@@ -12,15 +12,14 @@ code {
     monospace;
 }
 
-.column{
+.column {
   display: flex;
   flex-direction: column;
 }
 
-main{
+main {
   min-height: 100vh;
 }
-
 
 :root {
   --grey: #f9f9f9;
@@ -30,8 +29,8 @@ main{
   --green-l: #9ed670;
   --red: #d64d4d;
   --orange: #e39e54;
-  --yellow:#e8d174;
-  --purple-c: #8174A0;
-  --purple-w: #A888B5;
-  --pink: #EFB6C8;
+  --yellow: #e8d174;
+  --purple-c: #8174a0;
+  --purple-w: #a888b5;
+  --pink: #efb6c8;
 }

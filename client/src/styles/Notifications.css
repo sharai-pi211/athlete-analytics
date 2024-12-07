@@ -1,27 +1,27 @@
-.notif-cont{
-    width: calc(100vw - 330px);
-    margin-left: 20px;
+.notif-cont {
+  width: calc(100vw - 330px);
+  margin-left: 20px;
 }
 
-.notif-li{
-    border: #dedede 2px solid;
-    border-radius: 5px;
-    padding: 10px;
-    margin-top: 5px;
-    display: flex;
-    justify-content: space-between;
+.notif-li {
+  border: #dedede 2px solid;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 5px;
+  display: flex;
+  justify-content: space-between;
 }
 
-.notif-li:hover{
-    background-color: #dedede;
-    cursor: pointer;
+.notif-li:hover {
+  background-color: #dedede;
+  cursor: pointer;
 }
 
-.not-statuses{
-    align-self: flex-end;
-    text-align: end;
+.not-statuses {
+  align-self: flex-end;
+  text-align: end;
 }
 
-li p{
-    margin: 0;
+li p {
+  margin: 0;
 }

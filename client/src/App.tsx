@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Routes, Route, Outlet } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import Login from "./components/Login";
 import Register from "./components/Register";
@@ -46,7 +51,6 @@ const App: React.FC = () => {
             <Route path="tasks" element={<Tasks />} />
             <Route path="notifications" element={<Notifications />} />
             <Route path="/tasks/:teamId" element={<Tasks />} />
-
           </Route>
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

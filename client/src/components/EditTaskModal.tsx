@@ -39,7 +39,6 @@ const translatePriority = (priority: string): string => {
     : "Неизвестный приоритет";
 };
 
-
 const EditTaskModal: React.FC<EditTaskModalProps> = ({
   teamId,
   taskId,
@@ -50,7 +49,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
   const [updatedTask, setUpdatedTask] = useState(taskData);
   const [teamMembers, setTeamMembers] = useState<TeamMember[]>([]);
   const [isEditMode, setIsEditMode] = useState(false);
-  const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write"); // Состояние для вкладок
+  const [selectedTab, setSelectedTab] = useState<"write" | "preview">("write");
 
   useEffect(() => {
     const fetchTeamMembers = async () => {
@@ -65,7 +64,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
             headers: {
               Authorization: `Bearer ${token}`,
             },
-          }
+          },
         );
 
         if (response.ok) {
@@ -89,7 +88,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
   const handleTaskChange = (
     e: React.ChangeEvent<
       HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement
-    >
+    >,
   ) => {
     const { name, value } = e.target;
     setUpdatedTask({ ...updatedTask, [name]: value });
@@ -101,13 +100,13 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
 
   function formatDate(dateString: string | null | undefined): string {
     if (!dateString) return "Не указано";
-  
+
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
     const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
-  
-    return `${day}.${month}.${year}`; // Формат "22.12.2024"
+
+    return `${day}.${month}.${year}`;
   }
 
   const saveTask = async () => {
@@ -127,7 +126,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
             ...updatedTask,
             assigned_to: updatedTask.assigned_to || null,
           }),
-        }
+        },
       );
 
       if (response.ok) {
@@ -153,7 +152,7 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
           headers: {
             Authorization: `Bearer ${token}`,
           },
-        }
+        },
       );
 
       if (response.ok) {
@@ -211,124 +210,128 @@ const EditTaskModal: React.FC<EditTaskModalProps> = ({
         {isEditMode ? (
           <div className="modal-cont">
             <div className="left-modal">
-            <strong>Название:</strong>
-            <input
-              type="text"
-              name="title"
-              placeholder="Title"
-              value={updatedTask.title}
-              onChange={handleTaskChange}
-              required
-            />
-            <strong>Описание:</strong>
-            <ReactMde
-              value={updatedTask.description || ""}
-              onChange={handleMarkdownChange}
-              onTabChange={setSelectedTab} // Добавляем обработчик переключения вкладок
-              selectedTab={selectedTab} // Передаем текущую вкладку
-              generateMarkdownPreview={(markdown) =>
-                Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
-              }
-              l18n={{
-                write: "Редактирование", // Новый текст для вкладки "Write"
-                preview: "Просмотр", // Новый текст для вкладки "Preview"
-                uploadingImage: "Загрузка изображения...", // Дополнительный текст
-                pasteDropSelect: "Перетащите изображение или вставьте ссылку", // Если требуется
-              }}
-            />
-                        </div>
-                        <div className="right-modal">
-            <strong>Приоритет:</strong>
-            <select
-              name="priority"
-              value={updatedTask.priority}
-              onChange={handleTaskChange}
-            >
-              <option value="low">Низкий</option>
-              <option value="normal">Нормальный</option>
-              <option value="high">Высокий</option>
-            </select>
-            <strong>Статус:</strong>
-            <select
-              name="status"
-              value={updatedTask.status}
-              onChange={handleTaskChange}
-            >
-              <option value="todo">Выполнить</option>
-              <option value="in progress">В процессе</option>
-              <option value="completed">Выполнено</option>
-            </select>
-            <strong>Кому назначено:</strong>
-            <select
-              name="assigned_to"
-              value={updatedTask.assigned_to || ""}
-              onChange={handleTaskChange}
-            >
-              <option value="">Никому не назначено</option>
-              {teamMembers.map((member) => (
-                <option key={member.id} value={member.id}>
-                  {member.username}
-                </option>
-              ))}
-            </select>
-            <strong>Сделать до:</strong>
-            <input
-              type="date"
-              name="due_date"
-              value={updatedTask.due_date || ""}
-              onChange={handleTaskChange}
-            />
-            <div className="edit-buttons">
-              <button onClick={saveTask}>Сохранить</button>
-              <button onClick={deleteTask} className="delete-btn">
-                Удалить
-              </button>
+              <strong>Название:</strong>
+              <input
+                type="text"
+                name="title"
+                placeholder="Title"
+                value={updatedTask.title}
+                onChange={handleTaskChange}
+                required
+              />
+              <strong>Описание:</strong>
+              <ReactMde
+                value={updatedTask.description || ""}
+                onChange={handleMarkdownChange}
+                onTabChange={setSelectedTab}
+                selectedTab={selectedTab}
+                generateMarkdownPreview={(markdown) =>
+                  Promise.resolve(<ReactMarkdown>{markdown}</ReactMarkdown>)
+                }
+                l18n={{
+                  write: "Редактирование",
+                  preview: "Просмотр",
+                  uploadingImage: "Загрузка изображения...",
+                  pasteDropSelect: "Перетащите изображение или вставьте ссылку",
+                }}
+              />
             </div>
+            <div className="right-modal">
+              <strong>Приоритет:</strong>
+              <select
+                name="priority"
+                value={updatedTask.priority}
+                onChange={handleTaskChange}
+              >
+                <option value="low">Низкий</option>
+                <option value="normal">Нормальный</option>
+                <option value="high">Высокий</option>
+              </select>
+              <strong>Статус:</strong>
+              <select
+                name="status"
+                value={updatedTask.status}
+                onChange={handleTaskChange}
+              >
+                <option value="todo">Выполнить</option>
+                <option value="in progress">В процессе</option>
+                <option value="completed">Выполнено</option>
+              </select>
+              <strong>Кому назначено:</strong>
+              <select
+                name="assigned_to"
+                value={updatedTask.assigned_to || ""}
+                onChange={handleTaskChange}
+              >
+                <option value="">Никому не назначено</option>
+                {teamMembers.map((member) => (
+                  <option key={member.id} value={member.id}>
+                    {member.username}
+                  </option>
+                ))}
+              </select>
+              <strong>Сделать до:</strong>
+              <input
+                type="date"
+                name="due_date"
+                value={updatedTask.due_date || ""}
+                onChange={handleTaskChange}
+              />
+              <div className="edit-buttons">
+                <button onClick={saveTask}>Сохранить</button>
+                <button onClick={deleteTask} className="delete-btn">
+                  Удалить
+                </button>
+              </div>
             </div>
           </div>
         ) : (
-                    <div className="modal-cont">
-                    <div className="left-modal">
-            <p className="column">
-              <strong>Название:</strong> 
-              <h3>{updatedTask.title}</h3>
-            </p>
-            <p className="column">
-              <strong>Описание:</strong>
-              {updatedTask.description ? (
-                <div className="description">
-                  <ReactMarkdown>{updatedTask.description}</ReactMarkdown>
-                </div>
-              ) : (
-                "нет описания"
-              )}
-            </p>
+          <div className="modal-cont">
+            <div className="left-modal">
+              <p className="column">
+                <strong>Название:</strong>
+                <h3>{updatedTask.title}</h3>
+              </p>
+              <p className="column">
+                <strong>Описание:</strong>
+                {updatedTask.description ? (
+                  <div className="description">
+                    <ReactMarkdown>{updatedTask.description}</ReactMarkdown>
+                  </div>
+                ) : (
+                  "нет описания"
+                )}
+              </p>
             </div>
             <div className="right-modal">
-            <p className="column">
-              <strong>Приоритет:</strong> 
-              <div className={`${updatedTask.priority.toLowerCase()}`}> {translatePriority(updatedTask.priority)}</div>
-            </p>
-            <p className="column">
-              <strong>Статус:</strong> 
-              <div className={`${updatedTask.status.toLowerCase()}`}> {translateStatus(updatedTask.status)}</div>
-              
-            </p>
-            <p className="column">
-              <strong>Назначено:</strong>{" "}
-              {updatedTask.assigned_to
-                ? teamMembers.find(
-                    (member) => member.id === updatedTask.assigned_to
-                  )?.username || "Неизвестный пользователь"
-                : "Никому не назначено"}
-            </p>
+              <p className="column">
+                <strong>Приоритет:</strong>
+                <div className={`${updatedTask.priority.toLowerCase()}`}>
+                  {" "}
+                  {translatePriority(updatedTask.priority)}
+                </div>
+              </p>
+              <p className="column">
+                <strong>Статус:</strong>
+                <div className={`${updatedTask.status.toLowerCase()}`}>
+                  {" "}
+                  {translateStatus(updatedTask.status)}
+                </div>
+              </p>
+              <p className="column">
+                <strong>Назначено:</strong>{" "}
+                {updatedTask.assigned_to
+                  ? teamMembers.find(
+                      (member) => member.id === updatedTask.assigned_to,
+                    )?.username || "Неизвестный пользователь"
+                  : "Никому не назначено"}
+              </p>
 
-            <p className="column">
-              <strong>Сделать до:</strong>{" "}
-              {formatDate(updatedTask.due_date)}
-            </p>
+              <p className="column">
+                <strong>Сделать до:</strong> {formatDate(updatedTask.due_date)}
+              </p>
             </div>
-            </div>
+          </div>
         )}
       </div>
     </div>

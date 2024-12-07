@@ -16,19 +16,15 @@ interface CalendarViewProps {
 }
 
 const CalendarView: React.FC<CalendarViewProps> = ({ tasks, onTaskClick }) => {
-
   const getTileContent = (date: Date) => {
-    // Преобразуем дату календаря в формат YYYY-MM-DD
     const calendarDate = date.toISOString().split("T")[0];
 
-    // Фильтруем задачи для текущей даты
     const tasksForDate = tasks.filter((task) => {
       if (!task.due_date) return false;
       const taskDate = new Date(task.due_date).toISOString().split("T")[0];
       return taskDate === calendarDate;
     });
 
-    // Возвращаем задачи в плитке календаря
     return (
       <>
         {tasksForDate.map((task) => (
@@ -37,13 +33,12 @@ const CalendarView: React.FC<CalendarViewProps> = ({ tasks, onTaskClick }) => {
             className={`calendar-task ${task.priority.toLowerCase()} ${task.status.toLowerCase()}`}
             onClick={(e) => {
               e.stopPropagation();
-              onTaskClick(task); // Открытие задачи
+              onTaskClick(task);
             }}
           >
             {task.title}
           </div>
         ))}
-        
       </>
     );
   };

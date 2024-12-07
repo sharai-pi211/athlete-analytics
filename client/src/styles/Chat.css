@@ -1,56 +1,56 @@
-.chat-cont{
-    width: calc(100vw - 350px);
-    margin-left: 20px;  
-    height: 95vh; 
+.chat-cont {
+  width: calc(100vw - 350px);
+  margin-left: 20px;
+  height: 95vh;
 }
 
-.chat-mess{
-    height: 90%;
-    overflow-y: scroll;
-    display: flex;
-    flex-direction: column;
-    scrollbar-width: thin;
+.chat-mess {
+  height: 90%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  scrollbar-width: thin;
 }
 
-.send-cont{
-    width: 100%;
-    display: flex;
-    height: 30px;
-    border-radius: 5px;
+.send-cont {
+  width: 100%;
+  display: flex;
+  height: 30px;
+  border-radius: 5px;
 }
 
-.send-cont input{
-    flex-grow: 1;
+.send-cont input {
+  flex-grow: 1;
 }
 
-.message{
-    margin: 10px;
-    margin-top: 0;
-    padding: 10px;
-    width: fit-content;
-    background-color: var(--grey);
-    border-radius: 5px;
+.message {
+  margin: 10px;
+  margin-top: 0;
+  padding: 10px;
+  width: fit-content;
+  background-color: var(--grey);
+  border-radius: 5px;
 }
 
-.m-right{
-    align-self: end;
+.m-right {
+  align-self: end;
 }
 
-.m-left{
-    align-self: start;
-    background-color: var(--grey-accent);
+.m-left {
+  align-self: start;
+  background-color: var(--grey-accent);
 }
 
-.m-date{
-    font-size: 0.8em;
-    color: gray;
+.m-date {
+  font-size: 0.8em;
+  color: gray;
 }
 
-.send-btn{
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: var(--green);
-    color: white;
-    padding: 0 15px ;
+.send-btn {
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: var(--green);
+  color: white;
+  padding: 0 15px;
 }

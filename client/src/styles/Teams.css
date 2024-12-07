@@ -129,20 +129,19 @@ ul {
   margin-bottom: 10px;
 }
 
-
-.css-b62m3t-container{
-    margin-top: 5px;
-}
-
-.team-item{
+.css-b62m3t-container {
   margin-top: 5px;
 }
 
-.sel-users{
+.team-item {
+  margin-top: 5px;
+}
+
+.sel-users {
   margin-bottom: 20px;
 }
 
-.teams-btn-green{
+.teams-btn-green {
   color: white;
   background-color: var(--green);
   border: none;

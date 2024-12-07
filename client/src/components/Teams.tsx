@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import CreateTeam from "./CreateTeam";
 import "../styles/Teams.css";
 
-// Объект для перевода ролей
 const teamMemberTranslation = {
   owner: "создатель",
   member: "участник",
   admin: "администратор",
 };
 
-// Вспомогательная функция для перевода роли
 const translateRole = (role: string): string => {
-  return teamMemberTranslation[role as keyof typeof teamMemberTranslation] || "Неизвестная роль";
+  return (
+    teamMemberTranslation[role as keyof typeof teamMemberTranslation] ||
+    "Неизвестная роль"
+  );
 };
 
 interface Team {

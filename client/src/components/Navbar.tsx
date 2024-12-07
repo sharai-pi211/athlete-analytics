@@ -11,7 +11,7 @@ interface Team {
 const Navbar: React.FC = () => {
   const [teams, setTeams] = useState<Team[]>([]);
   const [selectedTeam, setSelectedTeam] = useState<Team | null>(
-    JSON.parse(localStorage.getItem("selectedTeam") || "null")
+    JSON.parse(localStorage.getItem("selectedTeam") || "null"),
   );
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,10 +37,10 @@ const Navbar: React.FC = () => {
             const defaultTeam = data.teams[0];
             setSelectedTeam(defaultTeam);
             localStorage.setItem("selectedTeam", JSON.stringify(defaultTeam));
-            // navigate(`/tasks/${defaultTeam.team_id}`);
-            const isOnTasksRoute = /^\/tasks\/\d+$/.test(location.pathname); // Проверка, что маршрут соответствует /tasks/число
+
+            const isOnTasksRoute = /^\/tasks\/\d+$/.test(location.pathname);
             const newRoute = `/tasks/${defaultTeam.team_id}`;
-        
+
             if (!isOnTasksRoute) {
               navigate(newRoute);
             }
@@ -62,10 +62,10 @@ const Navbar: React.FC = () => {
     if (selectedOption) {
       let teamId = selectedOption?.team_id.toString();
       localStorage.setItem("selectedTeamId", teamId);
-      // navigate(`/tasks/${selectedOption.team_id}`);
-      const isOnTasksRoute = /^\/tasks\/\d+$/.test(location.pathname); // Проверка, что маршрут соответствует /tasks/число
+
+      const isOnTasksRoute = /^\/tasks\/\d+$/.test(location.pathname);
       const newRoute = `/tasks/${selectedOption.team_id}`;
-  
+
       if (isOnTasksRoute) {
         navigate(newRoute);
       }

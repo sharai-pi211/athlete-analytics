@@ -37,7 +37,7 @@
   }
 }
 
-.layout{
+.layout {
   display: flex;
   flex-direction: row;
 }

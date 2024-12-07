@@ -28,7 +28,7 @@ const Register: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    trigger, // добавлено для валидации
+    trigger,
   } = useForm<RegisterFormInputs>({
     resolver: zodResolver(registerSchema),
   });
@@ -69,107 +69,93 @@ const Register: React.FC = () => {
   return (
     <div className="full-container">
       <div className="register-container">
-      <h1 className="register-title">Регистрация</h1>
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label htmlFor="firstName" className="form-label">
-          Имя
-          </label>
-          <input
-            id="firstName"
-            type="text"
-            {...register("firstName", {
-              onChange: () => trigger("firstName"), // Вызываем валидацию на изменение
-            })}
-            className={`form-input ${errors.firstName ? "input-error" : ""}`}
-          />
-          {errors.firstName && (
-            <p className="error-message">{errors.firstName.message}</p>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="lastName" className="form-label">
-            Фамилия
-          </label>
-          <input
-            id="lastName"
-            type="text"
-            // className="form-input"
-            // {...register("lastName")}
-            // onChange={() => trigger("lastName")}
-            {...register("lastName", {
-              onChange: () => trigger("lastName"), // Вызываем валидацию на изменение
-            })}
-            className={`form-input ${errors.lastName ? "input-error" : ""}`}
-          />
-          {errors.lastName && (
-            <p className="error-message">{errors.lastName.message}</p>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="username" className="form-label">
-            Имя пользователя
-          </label>
-          <input
-            id="username"
-            type="text"
-            // {...register("username")}
-            // className="form-input"
-            // onChange={() => trigger("username")}
-            {...register("username", {
-              onChange: () => trigger("username"), // Вызываем валидацию на изменение
-            })}
-            className={`form-input ${errors.username ? "input-error" : ""}`}
-            
-          />
-          {errors.username && (
-            <p className="error-message">{errors.username.message}</p>
-          )}
-        </div>
+        <h1 className="register-title">Регистрация</h1>
+        <form onSubmit={handleSubmit(onSubmit)}>
+          <div className="form-group">
+            <label htmlFor="firstName" className="form-label">
+              Имя
+            </label>
+            <input
+              id="firstName"
+              type="text"
+              {...register("firstName", {
+                onChange: () => trigger("firstName"),
+              })}
+              className={`form-input ${errors.firstName ? "input-error" : ""}`}
+            />
+            {errors.firstName && (
+              <p className="error-message">{errors.firstName.message}</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="lastName" className="form-label">
+              Фамилия
+            </label>
+            <input
+              id="lastName"
+              type="text"
+              {...register("lastName", {
+                onChange: () => trigger("lastName"),
+              })}
+              className={`form-input ${errors.lastName ? "input-error" : ""}`}
+            />
+            {errors.lastName && (
+              <p className="error-message">{errors.lastName.message}</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="username" className="form-label">
+              Имя пользователя
+            </label>
+            <input
+              id="username"
+              type="text"
+              {...register("username", {
+                onChange: () => trigger("username"),
+              })}
+              className={`form-input ${errors.username ? "input-error" : ""}`}
+            />
+            {errors.username && (
+              <p className="error-message">{errors.username.message}</p>
+            )}
+          </div>
 
-        <div className="form-group">
-          <label htmlFor="email" className="form-label">
-          Электронная почта
-          </label>
-          <input
-            id="email"
-            type="email"
-            // {...register("email")}
-            // className="form-input"
-            // onChange={() => trigger("email")}
-            {...register("email", {
-              onChange: () => trigger("email"), // Вызываем валидацию на изменение
-            })}
-            className={`form-input ${errors.email ? "input-error" : ""}`}
-          />
-          {errors.email && (
-            <p className="error-message">{errors.email.message}</p>
-          )}
-        </div>
-        <div className="form-group">
-          <label htmlFor="password" className="form-label">
-            Пароль
-          </label>
-          <input
-            id="password"
-            type="password"
-            // {...register("password")}
-            // className="form-input"
-            // onChange={() => trigger("password")}
-            {...register("password", {
-              onChange: () => trigger("password"), // Вызываем валидацию на изменение
-            })}
-            className={`form-input ${errors.password ? "input-error" : ""}`}
-            
-          />
-          {errors.password && (
-            <p className="error-message">{errors.password.message}</p>
-          )}
-        </div>
-        <button type="submit" className="submit-button">
-          Зарегестрироваться
-        </button>
-      </form>
+          <div className="form-group">
+            <label htmlFor="email" className="form-label">
+              Электронная почта
+            </label>
+            <input
+              id="email"
+              type="email"
+              {...register("email", {
+                onChange: () => trigger("email"),
+              })}
+              className={`form-input ${errors.email ? "input-error" : ""}`}
+            />
+            {errors.email && (
+              <p className="error-message">{errors.email.message}</p>
+            )}
+          </div>
+          <div className="form-group">
+            <label htmlFor="password" className="form-label">
+              Пароль
+            </label>
+            <input
+              id="password"
+              type="password"
+              {...register("password", {
+                onChange: () => trigger("password"),
+              })}
+              className={`form-input ${errors.password ? "input-error" : ""}`}
+            />
+            {errors.password && (
+              <p className="error-message">{errors.password.message}</p>
+            )}
+          </div>
+          <button type="submit" className="submit-button">
+            Зарегестрироваться
+          </button>
+        </form>
       </div>
     </div>
   );

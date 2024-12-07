@@ -48,24 +48,23 @@ const TeamChat: React.FC = () => {
 
   useEffect(() => {
     if (!ws) return;
-  
+
     ws.onmessage = (event) => {
       const { event: eventType, data } = JSON.parse(event.data);
-  
+
       if (eventType === "new_message" && data.teamId === teamId) {
         setMessages((prev) => [...prev, data]);
       }
     };
-  
+
     return () => {
       if (ws) ws.onmessage = null;
     };
   }, [ws, teamId]);
-  
 
   const sendMessage = () => {
     if (!ws || !input.trim() || !teamId) return;
-  
+
     const messageData = {
       event: "send_message",
       data: {
@@ -73,31 +72,35 @@ const TeamChat: React.FC = () => {
         content: input,
       },
     };
-  
+
     ws.send(JSON.stringify(messageData));
-  
+
     setInput("");
-  };  
+  };
 
   return (
     <div className="chat-cont">
       <h2>Чат команды</h2>
       <div className="chat-mess">
         {messages.map((msg) => {
-const isCurrentUser = 
-msg.sender === String(currentUser?.id) || msg.sender === currentUser?.email;
-const messageClass = isCurrentUser ? "m-right" : "m-left";
+          const isCurrentUser =
+            msg.sender === String(currentUser?.id) ||
+            msg.sender === currentUser?.email;
+          const messageClass = isCurrentUser ? "m-right" : "m-left";
 
-return (
-<div key={msg.id} className={`message ${messageClass}`}>
-  {!isCurrentUser && <div><strong>{msg.sender}</strong></div>} 
-  <div>{msg.content}</div>
-  <div className="m-date">
-    {new Date(msg.created_at).toLocaleTimeString()}
-  </div>
-</div>
-);
-
+          return (
+            <div key={msg.id} className={`message ${messageClass}`}>
+              {!isCurrentUser && (
+                <div>
+                  <strong>{msg.sender}</strong>
+                </div>
+              )}
+              <div>{msg.content}</div>
+              <div className="m-date">
+                {new Date(msg.created_at).toLocaleTimeString()}
+              </div>
+            </div>
+          );
         })}
       </div>
       <div className="send-cont">
@@ -107,8 +110,8 @@ return (
           onChange={(e) => setInput(e.target.value)}
           placeholder="Сообщение"
         />
-        <button onClick={sendMessage}  className="send-btn">
-        <img src="/send.svg" alt="Send" className="send-ing" />
+        <button onClick={sendMessage} className="send-btn">
+          <img src="/send.svg" alt="Send" className="send-ing" />
         </button>
       </div>
     </div>

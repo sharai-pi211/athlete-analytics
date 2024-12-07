@@ -1,28 +1,25 @@
 import { useEffect } from "react";
 
-// Define the type for the task assigned data
 interface TaskAssignedData {
   taskId: number;
   title: string;
-  description: string; // Описание задачи
-  status: string; // Статус задачи
-  priority: string; // Приоритет задачи
+  description: string;
+  status: string;
+  priority: string;
   message: string;
 }
 
-// Define the type for the WebSocket message
 interface WebSocketMessage {
   event: string;
   data: TaskAssignedData;
 }
 
-// WebSocket Hook
 const useWebSocket = (
-  userId: string, // Ensure userId is a string
-  onTaskAssigned: (task: TaskAssignedData) => void // Callback to handle task assignments
+  userId: string,
+  onTaskAssigned: (task: TaskAssignedData) => void,
 ) => {
   useEffect(() => {
-    const WS_URL = "ws://localhost:5000/ws"; // Replace with your WebSocket URL
+    const WS_URL = "ws://localhost:5000/ws";
     const socket = new WebSocket(`${WS_URL}?userId=${userId}`);
 
     socket.onopen = () => {
@@ -35,7 +32,6 @@ const useWebSocket = (
       if (message.event === "task_assigned") {
         console.log("New task assigned:", message.data);
 
-        // Call the callback function
         if (onTaskAssigned) {
           onTaskAssigned(message.data);
         }
@@ -50,7 +46,6 @@ const useWebSocket = (
       console.error("WebSocket error:", error);
     };
 
-    // Cleanup when the component is unmounted
     return () => {
       socket.close();
     };

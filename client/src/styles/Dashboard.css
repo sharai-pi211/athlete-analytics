@@ -59,34 +59,34 @@ h1 {
   color: #555;
 }
 
-.top-cont{
+.top-cont {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   margin-bottom: 40px;
   gap: 20px;
 }
 
-.top-cont .chart{
+.top-cont .chart {
   flex-grow: 1;
 }
 
-.second-cont{
+.second-cont {
   display: flex;
-  justify-content:space-between;
+  justify-content: space-between;
   margin-bottom: 40px;
   gap: 20px;
 }
 
-.second-cont .chart{
+.second-cont .chart {
   flex-grow: 1;
 }
 
-.v-cont{
+.v-cont {
   display: flex;
   flex-direction: column;
   width: fit-content;
 }
 
-.chart-by-user{
+.chart-by-user {
   flex-grow: 1;
 }

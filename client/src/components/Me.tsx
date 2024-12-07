@@ -3,7 +3,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
-import "../styles/Me.css"; // Стили для страницы
+import "../styles/Me.css";
 import Loading from "./Loading";
 
 const updateSchema = z.object({
@@ -25,7 +25,7 @@ const Me: React.FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setValue, // Для заполнения формы данными пользователя
+    setValue,
   } = useForm<UpdateFormInputs>({
     resolver: zodResolver(updateSchema),
   });
@@ -48,7 +48,6 @@ const Me: React.FC = () => {
 
         const user = await response.json();
 
-        // Заполняем форму данными пользователя
         setValue("username", user.username);
         setValue("email", user.email);
         setValue("first_name", user.first_name || "");
@@ -89,7 +88,7 @@ const Me: React.FC = () => {
     }
   };
 
-  if (loading) return <Loading/>;
+  if (loading) return <Loading />;
 
   if (error) {
     return <p className="error-message">{error}</p>;

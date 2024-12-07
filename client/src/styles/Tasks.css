@@ -92,14 +92,13 @@
   z-index: 1000;
 }
 
-.pagination{
+.pagination {
   margin-top: 20px;
 }
 
-.pagination span{
-  margin: 0px 10px ;
+.pagination span {
+  margin: 0px 10px;
 }
-
 
 .create-task-button:hover {
   background-color: var(--green-l);
@@ -159,25 +158,25 @@
 }
 
 .normal {
-  color: var(--green)
+  color: var(--green);
 }
 
 .low {
-  color: var(--yellow)
+  color: var(--yellow);
 }
 
 .high {
-  color: var(--red)
+  color: var(--red);
 }
 
 .in {
-  color: var(--orange)
+  color: var(--orange);
 }
 
 .completed {
-  color: var(--green-l)
+  color: var(--green-l);
 }
 
 .todo {
-  color: var(--purple-w)
+  color: var(--purple-w);
 }
